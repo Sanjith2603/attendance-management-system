@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SPZ ATTENDANCE</title>
+    <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='SPZ.jpg') }}">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="site-header">
+
+        <h1>SPZ Attendance Management</h1>
+    </div>
+
+    <form method="POST">
+        <input type="date" name="date" required>
+         <select name="name" required>
+            <option value="">name</option>
+            <option>Sanjith L</option>
+            <option>Sarvesh RM</option>
+            <option>Sharvesh R</option>
+            <option>Vishwa A</option>
+
+        </select>
+        <select name="status" required>
+            <option value="">Status</option>
+            <option>Present</option>
+            <option>Absent</option>
+        </select>
+
+        <input type="time" name="inTime" placehoder="InTime" required>
+        <input type="time" name="outTime" placeholder="OutTime" required>
+
+        <input type="text" name="learnings" placeholder="Learnings">
+
+        <button type="submit">Add Attendance</button>
+    </form>
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>In Time</th>
+        <th>Out Time</th>
+        <th>Learnings</th>
+        <th>Action</th>
+    </tr>
+
+    {% for row in records %}
+    <tr>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+        <td>{{ row[2] }}</td>
+        <td>{{ row[3] }}</td>
+        <td>{{ row[4] }}</td>
+        <td>{{ row[5] }}</td>
+        <td>
+            <form action="/delete/{{ loop.index0 }}" method="POST"
+                  onsubmit="return confirm('Are you sure you want to delete this record?');">
+                <button type="submit" style="background:red;color:white;border:none;padding:5px;">
+                    Delete
+                </button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+  </div>
+
+</body>
+</html>
